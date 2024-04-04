@@ -1,4 +1,10 @@
-import { FieldValues, UseFormRegister, UseFormWatch } from 'react-hook-form';
+
+import {
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 import styled from 'styled-components';
 
 import {
@@ -12,10 +18,12 @@ import VerificationRadioOptions from './VerificationRadioOptions';
 const VerificationOption = ({
   type,
   register,
+  setValue,
   watch,
 }: {
   type: string;
   register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
   watch: UseFormWatch<FieldValues>;
 }) => {
   switch (type) {
@@ -41,6 +49,7 @@ const VerificationOption = ({
           type={type}
           register={register}
           watch={watch}
+          setValue={setValue}
         />
       );
     case VERIFICATION.TREAT:
@@ -51,6 +60,7 @@ const VerificationOption = ({
           type={type}
           register={register}
           watch={watch}
+          setValue={setValue}
         />
       );
     case VERIFICATION.BATH:
@@ -61,6 +71,7 @@ const VerificationOption = ({
           type={type}
           register={register}
           watch={watch}
+          setValue={setValue}
         />
       );
   }
