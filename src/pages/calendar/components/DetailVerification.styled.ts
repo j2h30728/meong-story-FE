@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { getVerificationTypeColor } from '../../../utils/getVerificationTypeColor';
+import { getVerificationCategoryColor } from '../../../utils/getVerificationCategoryColor';
 
 export const Container = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ export const SelectedDate = styled.h3`
 export const Round = styled.div<{ type: string }>`
   width: 11px;
   height: 11px;
-  background-color: ${({ type }) => getVerificationTypeColor(type)};
+  background-color: ${({ type }) => getVerificationCategoryColor(type)};
   border-radius: 100%;
 `;
 export const VerificationSection = styled.div`
@@ -41,12 +41,20 @@ export const VerificationItem = styled.div`
   grid-template-columns: 6fr 2fr 1fr;
   gap: 10px;
   align-items: center;
+  padding: 3px;
+  font-size: ${({ theme }) => theme.FONT.XS};
+
   span {
     white-space: nowrap;
+  }
+  #option {
+    background-color: ${({ theme }) => theme.COLORS['P-BUTTON2']};
+    width: fit-content;
+    padding: 10px;
+    border-radius: 20px;
   }
   #time {
     margin-left: auto;
     color: ${({ theme }) => theme.COLORS['FONT-COLOR-WB']};
-    font-size: ${({ theme }) => theme.FONT.XS};
   }
 `;
