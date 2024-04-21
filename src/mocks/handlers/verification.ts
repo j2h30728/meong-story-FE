@@ -5,14 +5,14 @@ import { verification } from '../resolvers/verification';
 
 export const verificationHandler = [
   /** verification count 및 pet info 조회 */
-  http.get(baseURL(END_POINT.HOME), verification.getVerificationCount.success),
+  http.get(baseURL(END_POINT.HOME), verification.getVerificationCount),
 
   /** pet verification post */
-  http.post(baseURL(END_POINT.POST), verification.uploadVerification.success),
+  http.post(baseURL(END_POINT.POST), verification.uploadVerification),
 
   /** get verification for calendar data */
-  http.get(
-    baseURL(END_POINT.CALENDAR),
-    verification.getVerificationCalendar.success
-  ),
+  http.get(baseURL(END_POINT.CALENDAR), verification.getVerificationCalendar),
+
+  /** get verification for slide data */
+  http.get(baseURL(END_POINT.SLIDE), verification.getVerificationForSlide),
 ];
