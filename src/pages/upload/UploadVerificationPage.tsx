@@ -9,8 +9,13 @@ import {
 import { useFunnel } from '../../shared/hooks/useFunnel';
 import { VERIFICATION } from '../../shared/constants/verification';
 import type { UploadVerificationForm } from '../../shared/types/verification';
-import transformFormData from '../../shared/lib/transFormData';
+import transformFormData from '../../widgets/verification/lib/transFormData';
 import { useUploadVerification } from '../../entities/verification';
+import isValidUploadFormData from '../../widgets/verification/lib/validateFromData';
+import {
+  INVALID_CATEGORY,
+  INVALID_FILLED_FILED_COUNT,
+} from '../../shared/constants/message';
 
 const UPLOAD_STEP = {
   인증성공: '인증 성공',
@@ -20,19 +25,30 @@ const UPLOAD_STEP = {
 
 const UploadVerificationPage = () => {
   const { category } = useParams();
-  const isSkip = category === VERIFICATION.DAILY;
+  if (!category) {
+    throw new Error(INVALID_CATEGORY);
+  }
+
+  const isSkip = category === VERIFICATION.DAILY.value;
   const [Funnel, setStep] = useFunnel<
     (typeof UPLOAD_STEP)[keyof typeof UPLOAD_STEP]
   >(isSkip ? UPLOAD_STEP.인증순간남기기 : UPLOAD_STEP.인증성공);
 
-  const methods = useForm();
-  const { mutate, data: uploadedVerificationData } = useUploadVerification();
+  const methods = useForm<UploadVerificationForm>();
+  const { mutate } = useUploadVerification();
 
   const onSubmit = (formData: UploadVerificationForm) => {
-    const uploadVerificationData = transformFormData(formData, category!);
-    mutate(uploadVerificationData, {
-      onSuccess: () => setStep(UPLOAD_STEP.인증순간남기기성공),
-    });
+    if (isValidUploadFormData(formData)) {
+      const uploadVerificationData = transformFormData(formData, category!);
+      setStep(UPLOAD_STEP.인증순간남기기성공);
+      mutate(uploadVerificationData, {
+        onSuccess: () => setStep(UPLOAD_STEP.인증순간남기기성공),
+      });
+    } else {
+      methods.setError('root', {
+        message: INVALID_FILLED_FILED_COUNT,
+      });
+    }
   };
 
   return (
@@ -45,12 +61,10 @@ const UploadVerificationPage = () => {
             />
           </Funnel.Step>
           <Funnel.Step name={UPLOAD_STEP.인증순간남기기}>
-            <VerificationUploadForm />
+            <VerificationUploadForm category={category} />
           </Funnel.Step>
           <Funnel.Step name={UPLOAD_STEP.인증순간남기기성공}>
-            <ConformVerificationContents
-              uploadedData={uploadedVerificationData}
-            />
+            <ConformVerificationContents category={category} />
           </Funnel.Step>
         </Funnel>
       </form>
