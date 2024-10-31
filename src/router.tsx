@@ -2,23 +2,29 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import ROUTE_PATH from './shared/constants/routePath';
-import {
-  ErrorPage,
-  Intro,
-  Register,
-  SlidePage,
-  UploadVerification,
-  Setting,
-  Home,
-  Grid,
-  Calendar,
-  KakaoLogIn,
-  GridByUser,
-  SendingInvitation,
-  FamilyList,
-  DetailVerification,
-} from './pages';
 import AuthProvider from './providers/AuthProvider';
+import { lazy } from 'react';
+
+const ErrorPage = lazy(() => import('./pages/ErrorPage'));
+const Intro = lazy(() => import('./pages/Intro'));
+const KakaoLogIn = lazy(() => import('./pages/KakaoLogIn'));
+const Register = lazy(() => import('./pages/register/RegisterPage'));
+const Home = lazy(() => import('./pages/Home/HomePage'));
+const DetailVerification = lazy(
+  () => import('./pages/detailVerification/detailVerificationPage')
+);
+const SlidePage = lazy(() => import('./pages/slide/SlidePage'));
+const Grid = lazy(() => import('./pages/grid/GridPage'));
+const GridByUser = lazy(() => import('./pages/grid/GridByUserPage'));
+const Calendar = lazy(() => import('./pages/calendar/CalendarPage'));
+const Setting = lazy(() => import('./pages/setting/SettingPage'));
+const SendingInvitation = lazy(
+  () => import('./pages/setting/SendingInvitationPage')
+);
+const FamilyList = lazy(() => import('./pages/setting/FamilyListPage'));
+const UploadVerification = lazy(
+  () => import('./pages/upload/UploadVerificationPage')
+);
 
 const router = createBrowserRouter([
   {
