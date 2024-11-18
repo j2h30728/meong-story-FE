@@ -1,14 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ROUTE_PATH from '../../shared/constants/routePath';
-import { Layout } from '../../shared/ui';
-import { SlideIcon } from '../../shared/ui/Icons';
-import {
-  GridVerificationsForAll,
-  GridLayout,
-  GridVerificationsByUploader,
-} from '../../widgets/grid';
-import { GridType } from '../../shared/types/verification';
+import ROUTE_PATH from '@/shared/constants/routePath';
+import { SlideIcon } from '@/widgets/common/Icons';
+import { GridType } from '@/entities/verification/verification.dto';
+import Layout from '@/widgets/common/Layout';
+import GridLayout from '@/entities/verification/ui/grid/GridLayout';
+import GridVerificationsForAll from '@/entities/verification/ui/grid/GridVerificationsForAll';
+import GridVerificationsByUploader from '@/entities/verification/ui/grid/GridVerificationsByUploader';
 
 const GridPage = () => {
   const navigate = useNavigate();

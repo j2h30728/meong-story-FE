@@ -1,21 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-  ConformVerification,
-  ConformVerificationContents,
-  VerificationUploadForm,
-} from '../../shared/ui';
-import { useFunnel } from '../../shared/hooks/useFunnel';
-import { VERIFICATION } from '../../shared/constants/verification';
-import type { UploadVerificationForm } from '../../shared/types/verification';
-import transformFormData from '../../widgets/verification/lib/transFormData';
-import { useUploadVerification } from '../../entities/verification';
-import isValidUploadFormData from '../../widgets/verification/lib/validateFromData';
+import { useFunnel } from '@/shared/hooks/useFunnel';
 import {
   INVALID_CATEGORY,
   INVALID_FILLED_FILED_COUNT,
-} from '../../shared/constants/message';
+} from '@/shared/constants/message';
+import { VERIFICATION } from '@/entities/verification/constants';
+import transformFormData from '@/entities/verification/libs/transFormData';
+import isValidUploadFormData from '@/entities/verification/libs/validateFromData';
+import ConformVerification from '@/entities/verification/ui/upload/ConformVerification';
+import ConformVerificationContents from '@/entities/verification/ui/upload/ConformVerificationContents';
+import { UploadVerificationForm } from '@/entities/verification/verification.dto';
+import useUploadVerification from '@/entities/verification/mutations/useUploadVerification';
+import VerificationUploadForm from '@/entities/verification/ui/upload/VerificationUploadForm';
 
 const UPLOAD_STEP = {
   인증성공: '인증 성공',
